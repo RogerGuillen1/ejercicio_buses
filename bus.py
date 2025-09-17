@@ -5,6 +5,7 @@ class Bus:
         Bus.bus_id += 1
         self.plazas = plazas
         self.plazas_iniciales = plazas
+        self.billetes = []
 
     def ventaBilletes(self, plazas, billetes):
         if(billetes > plazas):
@@ -22,7 +23,7 @@ class Bus:
         return plazas_iniciales - plazas
     
     def estado(self):
-        plazas_vendidas = plazas_vendidas(self.plazas_iniciales, self.plazas)
+        plazas_vendidas = self.plazasVendidas(self.plazas_iniciales, self.plazas)
         print(f'Quedan {self.plazas} plazas de {self.plazas_iniciales} iniciales y se han vendido {plazas_vendidas} billetes.')
         
 

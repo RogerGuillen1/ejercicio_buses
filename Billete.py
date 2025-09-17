@@ -1,12 +1,14 @@
-from Persona import Persona
+from persona import Persona
 
 class Billete:
-    billete_id = 0
+    __billete_id = 0
     def __init__(self, pNombre, pApellido):
         self.__persona = Persona(pNombre, pApellido)
-        self.__billete_id = self.__billete_id+1
-    def getBilleteId():
+        Billete.__billete_id += 1
+
+    def getBilleteId(self):
         return self.__billete_id
-    def __str__():
+    
+    def __str__(self):
         return self.__persona
 
