@@ -1,7 +1,19 @@
 from bus import Bus
 from billete import Billete
 
-plazas = int(input('Introduce el número de plazas: '))
+def pedir_entero_positivo(mensaje):
+    while True:
+        valor = input(mensaje)
+        if valor.isdigit():
+            numero = int(valor)
+            if numero > 0:
+                return numero
+            else:
+                print("El número debe ser mayor que cero")
+        else:
+            print("Debes poner un número entero positivo")
+
+plazas = pedir_entero_positivo('Introduce el número de plazas: ')
 opcion = None
 
 autobus = Bus(plazas)
@@ -12,15 +24,17 @@ while(opcion != 0):
     print('3. Estado de la venta')
     print('0. Salir')
 
-    opcion = int(input('Elige una opción: '))
+    opcion_input = input('Elige una opción: ')
+
+    while not opcion_input.isdigit():
+        print("Debes poner un número entero")
+        opcion_input = input('Elige una opción: ')
+    
+    opcion = int(opcion_input)
 
     if(opcion == 1):
-        billetes = int(input('Número de billetes a vender: '))
+        billetes = pedir_entero_positivo('Número de billetes a vender: ')
         
-        while(billetes <= 0):  
-            print('El número de billetes debe ser mayor que cero')
-            billetes = int(input('Número de billetes a vender: '))
-
         plazas_restantes = autobus.ventaBilletes(autobus.plazas, billetes)
         if(plazas_restantes is None):
             print('No hay suficientes plazas disponibles')
@@ -34,7 +48,8 @@ while(opcion != 0):
             autobus.plazas = plazas_restantes
             print(f'Se han vendido {billetes} billetes. Quedan {autobus.plazas} plazas.')
     elif(opcion == 2):
-        billetes = int(input('Número de billetes a devolver: '))
+        billetes = pedir_entero_positivo('Número de billetes a devolver: ')
+
         plazas_restantes = autobus.devolucionBilletes(autobus.plazas, autobus.plazas_iniciales, billetes)
         if(plazas_restantes is None):
             print('No se pueden devolver más billetes de los vendidos')
@@ -47,8 +62,7 @@ while(opcion != 0):
             print(f'Se han devuelto {billetes} billetes. Quedan {autobus.plazas} plazas.')
     elif(opcion == 3):
         autobus.estado()
-    else:
+    elif(opcion != 0):
         print('Opción no válida')
-
 
 print('Has salido del programa...')
