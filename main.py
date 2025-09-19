@@ -16,6 +16,11 @@ while(opcion != 0):
 
     if(opcion == 1):
         billetes = int(input('Número de billetes a vender: '))
+        
+        while(billetes <= 0):  
+            print('El número de billetes debe ser mayor que cero')
+            billetes = int(input('Número de billetes a vender: '))
+
         plazas_restantes = autobus.ventaBilletes(autobus.plazas, billetes)
         if(plazas_restantes is None):
             print('No hay suficientes plazas disponibles')
